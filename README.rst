@@ -33,7 +33,7 @@ Quick start
 
 - Please visit below link for more details and source code.
 
-    http://thepythondjango.com/py-instagram-dl-python-package-download-pictures-instagram-user/
+    http://thepythondjango.com/py_instagram_dl-python-package-download-pictures-instagram-user/
 
 
 .
