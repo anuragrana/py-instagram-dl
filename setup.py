@@ -15,7 +15,7 @@ setup(
     license='MIT License',
     description='A Python package to download all pictures from an Instagram user profile. ',
     long_description=README,
-    url='http://www.thepythondjango.com/',
+    url='http://www.pythoncircle.com/',
     author='Anurag Rana',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
