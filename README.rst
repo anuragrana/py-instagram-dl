@@ -10,7 +10,7 @@ Quick start
 
 - Create a virtual environment. Optional but recommended. You can refer below article.
 
-   http://thepythondjango.com/virtual-environment-python-pocket-guide/
+   https://www.pythoncircle.com/post/404/virtual-environment-in-python-a-pocket-guide/
 
 - Install dependencies::
 
@@ -33,7 +33,7 @@ Quick start
 
 - Please visit below link for more details and source code.
 
-    http://thepythondjango.com/py_instagram_dl-python-package-download-pictures-instagram-user/
+    https://www.pythoncircle.com/post/447/py_instagram_dl-the-python-package-to-download-all-pictures-of-an-instagram-user/
 
 
 .
