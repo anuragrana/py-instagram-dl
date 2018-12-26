@@ -63,8 +63,9 @@ def printt(verbose, msg, end=False):
 def get_images(images, count, w, verbose, foldername):
     printt(verbose, "\nDownloading image from first page")
     for image in images:
+        image = image["node"]
         if "GraphImage" == image["__typename"]:
-            urllib.request.urlretrieve(image["display_src"], foldername + "/" + str(count) + ".jpg")
+            urllib.request.urlretrieve(image["display_url"], foldername + "/" + str(count) + ".jpg")
             count += 1
             printt(verbose, ".", end=True)
             time.sleep(w)
@@ -97,8 +98,8 @@ def download(username, verbose=True, wait_between_requests=0):
     script_tags = (soup.find_all('script'))
     json_obj = get_user_data_json(script_tags)
 
-    user_id = json_obj["entry_data"]["ProfilePage"][0]["user"]["id"]
-    images = json_obj["entry_data"]["ProfilePage"][0]["user"]["media"]["nodes"]
+    user_id = json_obj["entry_data"]["ProfilePage"][0]["graphql"]["user"]["id"]
+    images = json_obj["entry_data"]["ProfilePage"][0]["graphql"]["user"]["edge_owner_to_timeline_media"]["edges"]
 
     foldername = create_user_dir(username)
     printt(verbose, "\n\nDownloading data for " + username + " in directory "+foldername, end="")
@@ -106,8 +107,8 @@ def download(username, verbose=True, wait_between_requests=0):
     count = get_images(images, count, wait_between_requests, verbose, foldername)
 
     # check if more images are present
-    is_next = json_obj["entry_data"]["ProfilePage"][0]["user"]["media"]["page_info"]["has_next_page"]
-    end_cursor = json_obj["entry_data"]["ProfilePage"][0]["user"]["media"]["page_info"]["end_cursor"]
+    is_next = json_obj["entry_data"]["ProfilePage"][0]["graphql"]["user"]["edge_owner_to_timeline_media"]["page_info"]["has_next_page"]
+    end_cursor = json_obj["entry_data"]["ProfilePage"][0]["graphql"]["user"]["edge_owner_to_timeline_media"]["page_info"]["end_cursor"]
 
     # until next pages are available
     while is_next:
@@ -115,7 +116,8 @@ def download(username, verbose=True, wait_between_requests=0):
                    '{"id":"' + user_id + '","first":12,"after":"' + end_cursor + '"}'
         response = None
         try:
-            response = requests.get(next_url)
+            header = { 'Cookie': 'sessionid=FIXME' }
+            response = requests.get(next_url, headers=header)
         except Exception as e:
             raise UnknownException(repr(e))
 
